@@ -3,7 +3,8 @@
 
 ### Set up an AWS EC2 instance
 
-1. Create an IAM user & login to your AWS Console
+1.
+ Create an IAM user & login to your AWS Console
     - Access Type - Password
     - Permissions - Admin
 2. Create an EC2 instance
