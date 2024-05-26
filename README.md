@@ -48,8 +48,48 @@ echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
   /etc/apt/sources.list.d/jenkins.list > /dev/null
 sudo apt-get update
 sudo apt-get install jenkins
+
+```
+**Note: ** By default, Jenkins will not be accessible to the external world due to the inbound traffic restriction by AWS. Open port 8080 in the inbound traffic rules as show below.
+
+- EC2 > Instances > Click on <Instance-ID>
+- In the bottom tabs -> Click on Security
+- Security groups
+- Add inbound traffic rules as shown in the image (you can just allow TCP 8080 as well, in my case, I allowed `All traffic`).
+
+### Login to Jenkins using the below URL:
+```
+http://<ec2-instance-public-ip-address>:8080 
+```
+After you login to Jenkins,run this command to copy the Jenkins Admin Password 
+```
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+![Jenkins Login](images/jenkinsLogins.png)
+
+### Click on Install suggested plugins
+
+### Creating First Admin User
+![Jenkins Login](images/creatingAdmin_user.png)
+
+Create First Admin User or Skip the step [If you want to use this Jenkins instance for future use-cases as well, better to create admin user]
+
+
+### Grant Jenkins user and Ubuntu user permission to docker deamon.
+
+```
+sudo su - 
+usermod -aG docker jenkins
+usermod -aG docker ubuntu
+systemctl restart docker
 ```
 
-### A AWS EC2 instance was created🎉
+Once you are done with the above steps, it is better to restart Jenkins.
 
-![About Terraform](images/terraform.png)
+```
+http://<ec2-instance-public-ip>:8080/restart
+```
+
+The docker agent configuration is now successful.
+
+
