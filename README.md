@@ -3,7 +3,6 @@
 
 ### Set up an AWS EC2 instance
 
-1.
  Create an IAM user & login to your AWS Console
     - Access Type - Password
     - Permissions - Admin
@@ -82,6 +81,11 @@ sudo su -
 usermod -aG docker jenkins
 usermod -aG docker ubuntu
 systemctl restart docker
+```
+To check whether jenkins user has access to docker:
+```
+su - jenkins
+docker run hello-world
 ```
 
 Once you are done with the above steps, it is better to restart Jenkins.
